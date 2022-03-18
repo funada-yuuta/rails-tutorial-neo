@@ -1,0 +1,28 @@
+version: '3'
+
+volumes:
+  db-data:
+
+services:
+  db:
+    image: mysql:8.0
+    environment:
+      # コロンをつけてエラーになったので注意
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - '3306:3306'
+    # mysql:8.0で必要(?)
+    command: '--default-authentication-plugin=mysql_native_password'
+    volumes:
+      - 'db-data:/var/lib/mysql'
+
+  web:
+    build: .
+    ports:
+      - '3000:3000'
+    volumes:
+      - '.:/app'
+    tty: true
+    stdin_open: true
+    depends_on:
+      - db
