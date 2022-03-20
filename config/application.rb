@@ -36,6 +36,8 @@ module App
     config.generators.system_tests = nil
 
     config.generators do |g|
+      g.assets false
+      g.skip_routes false
       g.test_framework :rspec,
         fixtures: false,
         view_specs: false,
