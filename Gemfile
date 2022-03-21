@@ -6,6 +6,7 @@ ruby '2.7.5'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 # 'rails', '~> 6'と入力すれば、rails6の最新版を取得できる
 gem 'rails', '~> 6.1.5'
+gem 'bootstrap-sass'
 # Use mysql as the database for Active Record
 gem 'mysql2', '~> 0.5'
 # Use Puma as the app server
