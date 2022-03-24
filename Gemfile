@@ -28,6 +28,7 @@ group :development, :test do
 
   # Rails Tutorial Neo
   gem 'rspec-rails'
+  gem 'factory_bot_rails'
 end
 
 group :development do
