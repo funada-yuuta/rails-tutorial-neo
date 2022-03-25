@@ -38,4 +38,6 @@ Rails.application.configure do
 
   # テストがしにくいので、テスト環境では英語
   config.i18n.default_locale = :en
+
+  config.action_mailer.default_url_options = { host: 'example.com' }
 end

@@ -1,7 +1,7 @@
 en:
   activerecord:
     models:
-      user: user
+      user: User
     attributes:
       user:
-        name: name
+        name: Name
