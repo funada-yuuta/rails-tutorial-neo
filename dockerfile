@@ -14,7 +14,8 @@ RUN apt-get update && apt-get install -y \
     libpq-dev \
     nodejs \
     yarn \
-    default-mysql-client
+    default-mysql-client \
+    imagemagick
 
 WORKDIR /app
 COPY Gemfile Gemfile.lock /app/

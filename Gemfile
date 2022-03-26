@@ -5,6 +5,10 @@ ruby '2.7.5'
 
 # 'rails', '~> 6'と入力すれば、rails6の最新版を取得できる
 gem 'rails', '~> 6.1.5'
+gem 'aws-sdk-s3', require: false
+gem 'image_processing'
+gem 'mini_magick'
+gem 'active_storage_validations'
 gem 'bootstrap-sass'
 gem 'faker'
 gem 'will_paginate'
@@ -47,6 +51,8 @@ end
 # Rails Tutorial Neo
 group :test do
   gem 'capybara'
+  gem 'selenium-webdriver'
+  gem 'webdrivers'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
