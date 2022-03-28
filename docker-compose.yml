@@ -2,6 +2,9 @@ version: '3'
 
 volumes:
   db-data:
+  public-data:
+  tmp-data:
+  log-data:
 
 services:
   db:
@@ -18,11 +21,28 @@ services:
 
   web:
     build: .
+    command: 'bundle exec puma -C config/puma.rb'
     ports:
       - '3000:3000'
     volumes:
       - '.:/app'
+      # volumesを通じてnginxとファイルを共有している
+      - 'public-data:/app/public'
+      - 'tmp-data:/app/tmp'
+      - 'log-data:/app/log'
     tty: true
     stdin_open: true
     depends_on:
       - db
+
+  nginx:
+    build:
+      context: containers/nginx
+    volumes:
+      # volumesを通じてrailsとファイルを共有している
+      - 'public-data:/app/public'
+      - 'tmp-data:/app/tmp'
+    ports:
+      - '80:80'
+    depends_on:
+      - web
