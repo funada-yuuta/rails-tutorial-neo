@@ -20,3 +20,7 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /app
 COPY Gemfile Gemfile.lock /app/
 RUN bundle install
+
+COPY . /app/
+
+RUN mkdir -p tmp/sockets
