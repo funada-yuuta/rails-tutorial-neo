@@ -21,6 +21,7 @@ jobs:
       - image: cimg/ruby:2.7.5-node
       - image: cimg/mysql:8.0
         environment:
+          MYSQL_ROOT_PASSWORD: rootpw
           MYSQL_USER: user
           MYSQL_PASSWORD: password
           MYSQL_DATABASE: app_test
