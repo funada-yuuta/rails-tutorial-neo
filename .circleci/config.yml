@@ -1,0 +1,56 @@
+version: 2.1
+
+orbs:
+  ruby: circleci/ruby@1.4.1
+  node: circleci/node@5.0.1
+
+jobs:
+  build:
+    docker:
+      - image: cimg/ruby:2.7.5-node
+    steps:
+      - checkout
+      - ruby/install-deps
+      # Store bundle cache
+      - node/install-packages:
+          pkg-manager: yarn
+
+  test:
+    parallelism: 3
+    docker:
+      - image: cimg/ruby:2.7.5-node
+      - image: cimg/mysql:8.0
+        environment:
+          MYSQL_USER: user
+          MYSQL_PASSWORD: password
+          MYSQL_DATABASE: app_test
+    environment:
+      BUNDLE_JOBS: "3"
+      BUNDLE_RETRY: "3"
+      MYSQL_HOST: 127.0.0.1
+      MYSQL_USERNAME: user
+      MYSQL_PASSWORD: password
+      RAILS_ENV: test
+    steps:
+      - checkout
+      - ruby/install-deps
+      - node/install-packages:
+          pkg-manager: yarn
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:3306 -timeout 1m
+      - run:
+          name: Database setup
+          command: bundle exec rails db:schema:load --trace
+      # Run rspec in parallel
+      - ruby/rspec-test
+      - ruby/rubocop-check
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
