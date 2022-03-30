@@ -38,6 +38,7 @@ services:
   nginx:
     build:
       context: containers/nginx
+      dockerfile: Dockerfile
     volumes:
       # volumesを通じてrailsとファイルを共有している
       - 'public-data:/app/public'
